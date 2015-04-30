@@ -107,7 +107,7 @@ module.exports = function(grunt) {
 			}
 		},
 		jscs: {
-		  	src: ['**/*.js', '!node_modules/**/*.js', '!coverage.html'],
+		  	src: ['**/*.js', '!node_modules/**/*.js', '!coverage.html', '!Gruntfile.js', '!test/unit/*.js'],
 			options: {
 			    config: ".jscsrc",
 			    verbose: true // If you need output with rule names http://jscs.info/overview.html#verbose

@@ -1,6 +1,6 @@
 "use strict";
 
-var taskController = require('src/controllers/task');
+var taskHandler = require('src/handlers/task');
 var taskValidate = require('src/validate/task');
 
 module.exports = function() {
@@ -9,7 +9,7 @@ module.exports = function() {
 			method: 'GET',
 			path: '/tasks/{task_id}',
 			config: {
-				handler: taskController.findByID,
+				handler: taskHandler.findByID,
 				validate: taskValidate.findByID
 			}
 		},
@@ -17,7 +17,7 @@ module.exports = function() {
 			method: 'GET',
 			path: '/tasks',
 			config: {
-				handler: taskController.find,
+				handler: taskHandler.find,
 				validate: taskValidate.find
 			}
 		},
@@ -25,7 +25,7 @@ module.exports = function() {
 			method: 'POST',
 			path: '/tasks',
 			config: {
-				handler: taskController.insert,
+				handler: taskHandler.insert,
 				validate: taskValidate.insert
 			}
 		},
@@ -33,7 +33,7 @@ module.exports = function() {
 			method: 'PUT',
 			path: '/tasks/{task_id}',
 			config: {
-				handler: taskController.update,
+				handler: taskHandler.update,
 				validate: taskValidate.update
 			}
 		},
@@ -41,7 +41,7 @@ module.exports = function() {
 			method: 'DELETE',
 			path: '/tasks/{task_id}',
 			config: {
-				handler: taskController.delete,
+				handler: taskHandler.delete,
 				validate: taskValidate.delete
 			}
 		}

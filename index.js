@@ -7,9 +7,9 @@ var routes = require('src/routes');
 var _ = require('underscore');
 
 var options = {
-	state : {
-		cookies : {
-			strictHeader : false
+	state: {
+		cookies: {
+			strictHeader: false
 		}
 	}
 };
@@ -18,14 +18,14 @@ var host = constants.application['host'];
 var port = constants.application['port'];
 var server = Hapi.createServer(host, port, options);
 
-server.pack.require('hapi-auth-basic', function (err) {
+server.pack.require('hapi-auth-basic', function(err) {
 	server.auth.strategy('simple', 'basic', true, {
 		validateFunc: basicAuth
 	});
 });
 
-server.ext('onRequest', function(request, next){
-	request.plugins.createControllerParams = function(requestParams){
+server.ext('onRequest', function(request, next) {
+	request.plugins.createHandlerParams = function(requestParams) {
 		var params = _.clone(requestParams);
 		params.userId = request.auth.credentials.userId;
 		return params;
@@ -43,5 +43,5 @@ module.exports = server;
 if (process.env.NODE_ENV !== 'test') {
 	server.start();
 
-	console.log('Server running in port #'+port);
+	console.log('Server running in port #' + port);
 }

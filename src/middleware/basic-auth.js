@@ -8,8 +8,9 @@ module.exports = function(username, password, callback) {
 
 	var userModel = new UserModel();
 	var cryptedPassword = userModel.encryptPass(password);
-
+console.log('Basic-Atuh: ' + username);
 	userDAO.find(username, cryptedPassword, function(err, credentials) {
+console.log('Basic-Atuh: ' + err);
 		if (err) {
 			return callback(err, false);
 		}
@@ -21,6 +22,7 @@ module.exports = function(username, password, callback) {
 };
 
 function validate(credentials) {
+console.log('Basic-Atuh: validate' + credentials);
 	credentials = credentials || {};
 	var schema = {
 		userId: Joi.number().integer().required(),

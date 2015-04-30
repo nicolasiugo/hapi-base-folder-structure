@@ -5,16 +5,16 @@ var Q = require('q');
 var taskDAO = require('src/dao/task');
 var _ = require('underscore');
 
-var ReplyHelper = require('src/controllers/reply-helper');
+var ReplyHelper = require('src/handlers/reply-helper');
 
-function TaskController(){};
-TaskController.prototype = (function() {
+function TaskHandler(){};
+TaskHandler.prototype = (function() {
 
 	return {
 		findByID: function findByID(request, reply) {
 
 			var helper = new ReplyHelper(request, reply);
-			var params = request.plugins.createControllerParams(request.params);
+			var params = request.plugins.createHandlerParams(request.params);
 
 			taskDAO.findByID(params, function(err, data) {
 				helper.replyFindOne(err, data);
@@ -23,7 +23,7 @@ TaskController.prototype = (function() {
 		find: function find(request, reply) {
 
 			var helper = new ReplyHelper(request, reply);
-			var params = request.plugins.createControllerParams(request.query);
+			var params = request.plugins.createHandlerParams(request.query);
 
 			taskDAO.find(params, function(err, data) {
 				helper.replyFind(err, data);
@@ -32,7 +32,7 @@ TaskController.prototype = (function() {
 		insert: function insert(request, reply) {
 
 			var helper = new ReplyHelper(request, reply);
-			var params = request.plugins.createControllerParams(request.payload);
+			var params = request.plugins.createHandlerParams(request.payload);
 			
 			var insert = Q.denodeify(taskDAO.insert);
 			var findByID = Q.denodeify(taskDAO.findByID);
@@ -63,8 +63,8 @@ TaskController.prototype = (function() {
 		update: function update(request, reply) {
 
 			var helper = new ReplyHelper(request, reply);
-			var payload = request.plugins.createControllerParams(request.payload);
-			var params = request.plugins.createControllerParams(request.params);
+			var payload = request.plugins.createHandlerParams(request.payload);
+			var params = request.plugins.createHandlerParams(request.params);
 
 			_.extend(params, payload);
 			
@@ -93,7 +93,7 @@ TaskController.prototype = (function() {
 		delete: function(request, reply) {
 
 			var helper = new ReplyHelper(request, reply);
-			var params = request.plugins.createControllerParams(request.params);
+			var params = request.plugins.createHandlerParams(request.params);
 
 			taskDAO.delete(params, function(err, data) {
 				helper.replyDelete(err, data);
@@ -102,5 +102,5 @@ TaskController.prototype = (function() {
 	}
 })();
 
-var taskController = new TaskController();
-module.exports = taskController;
+var taskHandler = new TaskHandler();
+module.exports = taskHandler;

@@ -4,7 +4,7 @@
   "description": "A sample structure for building a REST API on top of hapi.js framework",
   "main": "index.js",
   "scripts": {
-    "start": "grunt",
+    "start": "node index.js",
     "test": "make test-unit",
     "coverage": "make test-cov"
   },
@@ -26,6 +26,7 @@
     "hoek": "~1.5.1",
     "underscore": "~1.6.0",
     "db-migrate": "https://github.com/tuliomonteazul/node-db-migrate/tarball/master",
+    "li": "^1.0.0",
     "q": "~1.0.1"
   },
   "devDependencies": {
@@ -40,7 +41,6 @@
     "grunt-mocha-test": "^0.9.4",
     "grunt-node-inspector": "^0.1.3",
     "grunt-nodemon": "^0.2.1",
-    "li": "^1.0.0",
     "mocha": "^1.17.1",
     "shelljs": "^0.2.6",
     "should": "^3.1.3",
