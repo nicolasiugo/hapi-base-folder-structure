@@ -19,15 +19,18 @@
   },
   "homepage": "https://github.com/agendor/sample-hapi-rest-api",
   "dependencies": {
-    "hapi": "~3.0.0",
-    "mysql": "~2.1.0",
-    "hapi-auth-basic": "~1.0.0",
-    "joi": "~2.8.0",
-    "hoek": "~1.5.1",
-    "underscore": "~1.6.0",
     "db-migrate": "https://github.com/tuliomonteazul/node-db-migrate/tarball/master",
+    "hapi": "~3.0.0",
+    "hapi-auth-basic": "~1.0.0",
+    "hoek": "~1.5.1",
+    "joi": "~2.8.0",
     "li": "^1.0.0",
-    "q": "~1.0.1"
+    "multiparty": "^4.1.1",
+    "mysql": "~2.1.0",
+    "pkgcloud": "^1.2.0-alpha.0",
+    "q": "~1.0.1",
+    "time-uuid": "^0.2.1",
+    "underscore": "~1.6.0"
   },
   "devDependencies": {
     "blanket": "^1.1.6",

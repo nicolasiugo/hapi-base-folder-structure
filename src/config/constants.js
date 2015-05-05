@@ -20,6 +20,13 @@ module.exports = function() {
 		},
 		server: {
 			defaultHost: 'http://localhost:8001'
+		},
+		upload: {
+			provider: 's3', /* or: filesystem */
+			accessKey: 	 process.env.accessKey   || '',
+			accessKeyId: process.env.accessKeyId || '',
+			container:   process.env.container   || '',
+			path: './upload'
 		}
 	};
 
