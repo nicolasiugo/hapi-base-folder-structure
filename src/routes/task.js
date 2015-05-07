@@ -7,42 +7,47 @@ module.exports = function() {
 	return [
 		{
 			method: 'GET',
-			path: '/tasks/{task_id}',
+			path: '/tasks/{taskId}',
+			handler: taskHandler.findByID,
 			config: {
-				handler: taskHandler.findByID,
-				validate: taskValidate.findByID
+				validate: taskValidate.findByID,
+				auth: 'simple'
 			}
 		},
 		{
 			method: 'GET',
 			path: '/tasks',
+			handler: taskHandler.find,
 			config: {
-				handler: taskHandler.find,
-				validate: taskValidate.find
+				validate: taskValidate.find,
+				auth: 'simple'
 			}
 		},
 		{
 			method: 'POST',
 			path: '/tasks',
+			handler: taskHandler.insert,
 			config: {
-				handler: taskHandler.insert,
-				validate: taskValidate.insert
+				validate: taskValidate.insert,
+				auth: 'simple'
 			}
 		},
 		{
 			method: 'PUT',
-			path: '/tasks/{task_id}',
+			path: '/tasks/{taskId}',
+			handler: taskHandler.update,
 			config: {
-				handler: taskHandler.update,
-				validate: taskValidate.update
+				validate: taskValidate.update,
+				auth: 'simple'
 			}
 		},
 		{
 			method: 'DELETE',
-			path: '/tasks/{task_id}',
+			path: '/tasks/{taskId}',
+			handler: taskHandler.delete,
 			config: {
-				handler: taskHandler.delete,
-				validate: taskValidate.delete
+				validate: taskValidate.delete,
+				auth: 'simple'
 			}
 		}
 	];

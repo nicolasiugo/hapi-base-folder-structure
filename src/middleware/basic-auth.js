@@ -26,7 +26,7 @@ function validate(credentials) {
 		userId: Joi.number().integer().required(),
 		email: Joi.string().required()
 	};
-
-	var err = Joi.validate(credentials, schema, { allowUnknown:true });
-	return err === null;
+	var result = Joi.validate(credentials, schema, { allowUnknown:true });
+	
+	return result.error === null;
 }

@@ -9,9 +9,8 @@ module.exports = function() {
 		{
 			method: 'POST',
 			path: '/package/upload',
-
+			handler: packageHandler.upload,
 			config: {
-				handler: packageHandler.upload,
 				payload: {
 		            output: 'stream',
 		            parse: false,

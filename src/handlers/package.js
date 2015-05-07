@@ -1,14 +1,11 @@
 "use strict";
 
 var Hapi = require('hapi');
-var Fs = require('fs');
 var Q = require('q');
 var multiparty = require('multiparty');
 var UploadHelper = require('src/util/uploads');
 var generateId = require('time-uuid');
 var constants = require('src/config/constants.js');
-
-
 
 function PackageHandler(){};
 PackageHandler.prototype = (function() {
@@ -22,26 +19,25 @@ PackageHandler.prototype = (function() {
 	            if (err) {
 	            	return reply(err);
 	            }
-	            
-				var readStream = Fs.createReadStream(files.file[0].path);
-				var uploadCb = function upload(data) {
 
-					var result = data || {};
-					if (result.exception) {
-						return reply(Hapi.error.badRequest(result.exception));
+	            var path = files.file[0].path
+				var uploadCb = function upload(err, res) {
+
+					if (err) {
+						return reply(Hapi.error.badRequest(err));
 					} 
 
-					return reply('OK')
+					return reply('OK:' + res)
 						.type('application/json');
 
 				};
 
 				switch (constants.upload.provider) {
 					case 's3':
-						UploadHelper.fileSaveToS3(readStream, fields.filename[0], uploadCb);
+						UploadHelper.fileSaveToS3(path, fields.filename[0], uploadCb);
 						break;
 					case 'filesystem':
-						UploadHelper.fileSaveToDisk(readStream, fields.filename[0], uploadCb);
+						UploadHelper.fileSaveToDisk(path, fields.filename[0], uploadCb);
 						break;
 					default:
 						return reply(Hapi.error.badRequest('No upload provider set.'));

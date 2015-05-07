@@ -10,10 +10,11 @@ TaskValidate.prototype = (function() {
 
 	return {
 		findByID: {
-			path: (function path() {
+			params: (function params() {
 				var taskSchema = new models.Task().schema;
+
 				return {
-					task_id: taskSchema.taskId.required().rename('taskId')
+					taskId: taskSchema.taskId.required()
 				};
 			})()
 		},
@@ -36,8 +37,8 @@ TaskValidate.prototype = (function() {
 		update: (function update() {
 			var taskSchema = new models.Task().schema;
 			return {
-				path: {
-					task_id: taskSchema.taskId.required().rename('taskId')
+				params: {
+					taskId: taskSchema.taskId.required()
 				},
 				payload: {
 					description: taskSchema.description.required()
@@ -45,10 +46,10 @@ TaskValidate.prototype = (function() {
 			}
 		})(),
 		delete: {
-			path: (function path() {
+			params: (function params() {
 				var taskSchema = new models.Task().schema;
 				return {
-					task_id: taskSchema.taskId.required().rename('taskId')
+					taskId: taskSchema.taskId.required()
 				};
 			})()
 		}

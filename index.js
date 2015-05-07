@@ -16,21 +16,23 @@ var options = {
 
 var host = constants.application['host'];
 var port = constants.application['port'];
-var server = Hapi.createServer(host, port, options);
 
-server.pack.require('hapi-auth-basic', function(err) {
-	server.auth.strategy('simple', 'basic', true, {
-		validateFunc: basicAuth
-	});
+var server = new Hapi.Server();
+server.connection({ host: host, port: port });
+
+server.register(require('hapi-auth-basic'), function(err) {
+ 
+    server.auth.strategy('simple', 'basic', { validateFunc: basicAuth });
 });
 
-server.ext('onRequest', function(request, next) {
-	request.plugins.createHandlerParams = function(requestParams) {
+server.ext('onRequest', function(request, reply) {
+
+   	request.plugins.createHandlerParams = function(requestParams) {
 		var params = _.clone(requestParams);
 		params.userId = request.auth.credentials.userId;
 		return params;
 	};
-	next();
+    return reply.continue();
 });
 
 // Add all the routes within the routes folder

@@ -13,9 +13,10 @@ TaskHandler.prototype = (function() {
 	return {
 		findByID: function findByID(request, reply) {
 
+console.log("request.params: ");
+console.log(request.params);
 			var helper = new ReplyHelper(request, reply);
 			var params = request.plugins.createHandlerParams(request.params);
-
 			taskDAO.findByID(params, function(err, data) {
 				helper.replyFindOne(err, data);
 			});
@@ -23,7 +24,7 @@ TaskHandler.prototype = (function() {
 		find: function find(request, reply) {
 
 			var helper = new ReplyHelper(request, reply);
-			var params = request.plugins.createHandlerParams(request.query);
+			var params = request.plugins.createHandlerParams(request.params);
 
 			taskDAO.find(params, function(err, data) {
 				helper.replyFind(err, data);
