@@ -9,7 +9,7 @@ module.exports.create = function(options) {
 
 	var pagination = new Pagination(options);
 	var pagesLinkBuilder = new PagesLinkBuilder(options);
-
+	
 	if (pagination.hasMoreData()) {
 		if (pagination.isAfterFirst()) {
 			pagesLinkBuilder.setFirstPage();

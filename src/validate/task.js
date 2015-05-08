@@ -22,7 +22,9 @@ TaskValidate.prototype = (function() {
 			query: (function query() {
 				var taskSchema = new models.Task().schema;
 				return {
-					description: taskSchema.description
+					description: taskSchema.description,
+					perPage: Joi.number().integer(),
+					page: Joi.number().integer()
 				};
 			})()
 		},

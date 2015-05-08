@@ -84,7 +84,8 @@ TaskDAO.prototype = (function() {
 			var sql = "delete from task" +
 					" where taskId = ?" +
 					" and userId = ?";
-
+console.log(sql);
+console.log(values);
 			db.query({
 				sql: sql, 
 				values: values,

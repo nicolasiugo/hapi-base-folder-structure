@@ -1,6 +1,7 @@
 "use strict";
 
 var Hapi = require('hapi');
+var Boom = require('boom');
 var Q = require('q');
 var multiparty = require('multiparty');
 var UploadHelper = require('src/util/uploads');
@@ -20,11 +21,15 @@ PackageHandler.prototype = (function() {
 	            	return reply(err);
 	            }
 
+	            if (!files.file) {
+	            	return reply(Boom.badRequest(new Error('No file uploaded')));
+	            }
+
 	            var path = files.file[0].path
 				var uploadCb = function upload(err, res) {
 
 					if (err) {
-						return reply(Hapi.error.badRequest(err));
+						return reply(Boom.badRequest(err));
 					} 
 
 					return reply('OK:' + res)
@@ -40,7 +45,7 @@ PackageHandler.prototype = (function() {
 						UploadHelper.fileSaveToDisk(path, fields.filename[0], uploadCb);
 						break;
 					default:
-						return reply(Hapi.error.badRequest('No upload provider set.'));
+						return reply(Boom.badRequest('No upload provider set.'));
 						break;
 				}
 	        });

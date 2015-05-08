@@ -1,6 +1,7 @@
 "use strict";
 
 var Hapi = require('hapi');
+var Boom = require('boom');
 var constants = require('src/config/constants');
 
 var paginationLinks = require('src/util/pagination-links');
@@ -17,7 +18,7 @@ function ReplyHelper(request, reply) {
 ReplyHelper.prototype.replyFindOne = function replyFindOne(err, data) {
 	
 	if (err) {
-		return this.reply(Hapi.error.badImplementation(err));
+		return this.reply(Boom.badImplementation(err));
 	}
 
 	if (data[0]) {
@@ -30,7 +31,7 @@ ReplyHelper.prototype.replyFindOne = function replyFindOne(err, data) {
 ReplyHelper.prototype.replyFind = function replyFind(err, data) {
 
 	if (err) {
-		return this.reply(Hapi.error.badImplementation(err));
+		return this.reply(Boom.badImplementation(err));
 	}
 	
 	var linksHeader = paginationLinks.create({
@@ -39,7 +40,7 @@ ReplyHelper.prototype.replyFind = function replyFind(err, data) {
 		perPage: this.request.query.perPage,
 		totalCount: data.length
 	});
-
+	
 	var response = this.reply(data).hold();
 
 	if (!_.isEmpty(linksHeader)) {
@@ -54,7 +55,7 @@ ReplyHelper.prototype.replyFind = function replyFind(err, data) {
 ReplyHelper.prototype.replyDelete = function replyDelete(err, data) {
 
 	if (err) {
-		return this.reply(Hapi.error.badImplementation(err));
+		return this.reply(Boom.badImplementation(err));
 	}
 
 	this.reply().code(204);

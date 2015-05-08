@@ -11,11 +11,10 @@ var constants = require('src/config/constants.js');
 
 describe('Package routes', function(){
 	describe('POST /package/upload', function(){
-		this.timeout(35000);
+		this.timeout(45000);
 
-		it('should be possible to upload a file', function(done){
-
-	        var converter = new Stream.Writable();
+		function sendFile(done){
+			var converter = new Stream.Writable();
 			converter.data = [];
 
 			converter._write = function (chunk, encoding, callback) {
@@ -47,7 +46,22 @@ describe('Package routes', function(){
 			form.append('file', Fs.createReadStream(Path.join(__dirname, '/fixtures/56QhP4A.jpg')));
 			form.append('filename', 'nuevoarchivo4test.jpg');
 			form.pipe(converter);
+		}
 
+		it('should be possible to upload a file to the filesystem', function(done){
+
+			constants.upload.provider = 'filesystem';
+
+	        sendFile(done);
+		});
+
+
+
+		it('should be possible to upload a file to the filesystem', function(done){
+
+			constants.upload.provider = 's3';
+
+	        sendFile(done);
 		});
 	});
 });

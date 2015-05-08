@@ -1,6 +1,7 @@
 "use strict";
 
 var Hapi = require('hapi');
+var Boom = require('boom');
 var Q = require('q');
 var taskDAO = require('src/dao/task');
 var _ = require('underscore');
@@ -13,8 +14,6 @@ TaskHandler.prototype = (function() {
 	return {
 		findByID: function findByID(request, reply) {
 
-console.log("request.params: ");
-console.log(request.params);
 			var helper = new ReplyHelper(request, reply);
 			var params = request.plugins.createHandlerParams(request.params);
 			taskDAO.findByID(params, function(err, data) {
@@ -42,7 +41,7 @@ console.log(request.params);
 
 				var result = data;
 				if (result.exception) {
-					reply(Hapi.error.badRequest(result.exception));
+					reply(Boom.badRequest(result.exception));
 					done();
 				} 
 				params.taskId = result.insertId;
@@ -58,7 +57,7 @@ console.log(request.params);
 					.header('Location', location);
 
 			}).catch(function(err) {
-				reply(Hapi.error.badImplementation(err));
+				reply(Boom.badImplementation(err));
 			});
 		},
 		update: function update(request, reply) {
@@ -76,7 +75,7 @@ console.log(request.params);
 
 				var result = data;
 				if (result.exception) {
-					reply(Hapi.error.badRequest(result.exception));
+					reply(Boom.badRequest(result.exception));
 					done();
 				}
 				return findByID(params);
@@ -87,7 +86,7 @@ console.log(request.params);
 					.type('application/json');
 
 			}).catch(function(err) {
-				reply(Hapi.error.badImplementation(err));
+				reply(Boom.badImplementation(err));
 			});
 
 		},
@@ -96,6 +95,8 @@ console.log(request.params);
 			var helper = new ReplyHelper(request, reply);
 			var params = request.plugins.createHandlerParams(request.params);
 
+			console.log('DELETE');
+			console.log(params);
 			taskDAO.delete(params, function(err, data) {
 				helper.replyDelete(err, data);
 			});
